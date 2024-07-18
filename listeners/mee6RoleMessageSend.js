@@ -1,7 +1,7 @@
 const { Listener } = require('gcommands');
 
 const rolesHandler = async (msgContent, player) => {
-    if (msgContent.includes('level 1')) return await player.roles.add('1263454030869565523');
+    if (msgContent.includes('level 10')) return await player.roles.add('1263454030869565523');
     if (msgContent.includes('level 15')) return await player.roles.add('1263454151707459625');
     if (msgContent.includes('level 20')) return await player.roles.add('1263454212361027685');
     if (msgContent.includes('level 25')) return await player.roles.add('1263454552678596618');
