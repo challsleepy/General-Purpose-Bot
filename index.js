@@ -2,6 +2,7 @@ require('dotenv').config();
 const { GClient, Plugins, Command, Component } = require('gcommands');
 const { GatewayIntentBits } = require('discord.js');
 const { join } = require('path');
+const config = require('./config.json')
 
 // Set the default cooldown for commands
 Command.setDefaults({
@@ -37,4 +38,4 @@ const client = new GClient({
 });
 
 // Login to the discord API
-client.login(process.env.TOKEN);
+client.login(config.token);

@@ -1,7 +1,5 @@
-const { Listener, Context } = require('gcommands');
+const { Listener } = require('gcommands');
 const config = require('../config.json');
-const { Context } = require('gcommands/dist/index');
-
 
 new Listener({
     name: 'Suggestion Send',
@@ -11,18 +9,22 @@ new Listener({
         if (ctx.author.bot) return;
         if (ctx.channel.id === config.suggestionsChannelId) {
             try {
-                const message = await ctx.send({
+                await ctx.delete();
+                const message = await ctx.channel.send({
                     embeds: [{
-                        description: ctx.message.content,
+                        description: ctx.content,
                         color: 0x00ff00, // green color
                         footer: {
-                            text: 'React with ✅ for yes or ❌ for no'
+                            text: 'Upvote with ✅. Downvote with ❌.'
+                        },
+                        author: {
+                            name: ctx.author.username,
+                            icon_url: ctx.author.displayAvatarURL()
                         }
                     }]
                 });
-                await message.react('✅');
-                await message.react('❌');
-                await ctx.delete();
+                message.react('✅');
+                message.react('❌');
             } catch (error) {
                 console.error('Error sending suggestion:', error);
             }
