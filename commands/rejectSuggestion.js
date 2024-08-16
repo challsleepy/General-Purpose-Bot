@@ -1,9 +1,11 @@
+const { PermissionFlagsBits } = require('discord.js');
 const { Command, CommandType, Argument, ArgumentType, MessageEmbed } = require('gcommands');
 
 new Command({
     name: 'reject',
     description: 'Rejects a suggestion',
     type: [CommandType.SLASH],
+    defaultMemberPermissions: [PermissionFlagsBits.Administrator],
     arguments: [
         new Argument({
             name: 'message-id',
