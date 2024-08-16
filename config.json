@@ -1,0 +1,5 @@
+{
+    "token": "YOUR_BOT_TOKEN",
+    "suggestionsChannelId": "YOUR_SUGGESTIONS_CHANNEL_ID",
+    "devGuildId": "YOUR_DEV_GUILD_ID"
+}
