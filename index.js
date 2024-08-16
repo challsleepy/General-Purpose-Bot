@@ -5,9 +5,9 @@ const { join } = require('path');
 const config = require('./config.json')
 
 // Set the default cooldown for commands
-Command.setDefaults({
-	cooldown: '20s',
-});
+// Command.setDefaults({
+// 	cooldown: '20s',
+// });
 
 // Set the default onError function for components
 Component.setDefaults({
@@ -32,7 +32,7 @@ const client = new GClient({
 	// Set the prefix for message commands
 	messagePrefix: '!',
 	// Set the guild where you will be developing your bot. This is usefull cause guild slash commands update instantly.
-	devGuildId: process.env.DEV_SERVER,
+	devGuildId: config.devGuildId,
 	// Set the intents you will be using (https://discordjs.guide/popular-topics/intents.html#gateway-intents)
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
 });
