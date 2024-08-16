@@ -13,7 +13,7 @@ new Listener({
                 const message = await ctx.channel.send({
                     embeds: [{
                         description: ctx.content,
-                        color: 0x00ff00, // green color
+                        color: 0xFFFFFF,
                         footer: {
                             text: 'Upvote with ✅. Downvote with ❌.'
                         },
