@@ -44,8 +44,8 @@ new Command({
                 .setFooter({ text: 'This suggestion was accepted. Thanks!' });
 
             message.edit({ embeds: [suggestionAcceptedEmbed] })
-            .then(() => {
-                ctx.reply({ content: 'Suggestion accepted', ephemeral: true });
+            .then(async () => {
+                await ctx.reply({ content: 'Suggestion accepted', ephemeral: true });
             })
         } else {
             return ctx.reply({ content: 'Invalid suggestion', ephemeral: true });

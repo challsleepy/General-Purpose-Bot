@@ -22,7 +22,6 @@ new Command({
     ],
     // The function thats executed when the user uses the command.
     run: async (ctx) => {
-        if (ctx.message.type === 'THREAD_STARTER_MESSAGE') console.log("THREAD STARTED")
         const messageId = ctx.arguments.get('message-id').value;
         const regex = /^[0-9]{18,19}$/;
         
@@ -52,8 +51,8 @@ new Command({
                 .setFooter({ text: 'This suggestion was rejected.' });
 
             message.edit({ embeds: [suggestionAcceptedEmbed] })
-            .then(() => {
-                ctx.reply({ content: 'Suggestion rejected', ephemeral: true });
+            .then(async () => {
+                await ctx.reply({ content: 'Suggestion rejected', ephemeral: true });
             })
         } else {
             return ctx.reply({ content: 'Invalid suggestion', ephemeral: true });
