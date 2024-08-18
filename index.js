@@ -3,6 +3,7 @@ const { GClient, Plugins, Command, Component } = require('gcommands');
 const { GatewayIntentBits } = require('discord.js');
 const { join } = require('path');
 const config = require('./config.json')
+const mongoose = require('mongoose');
 
 // Set the default cooldown for commands
 // Command.setDefaults({
@@ -13,7 +14,7 @@ const config = require('./config.json')
 Component.setDefaults({
 	onError: (ctx, error) => {
 		return ctx.reply('Oops! Something went wrong')
-	} 
+	}
 });
 
 
@@ -38,4 +39,8 @@ const client = new GClient({
 });
 
 // Login to the discord API
-client.login(config.token);
+mongoose.connect(`mongodb://${config.mongoDB.username}:${config.mongoDB.password}@${config.mongoDB.host}:${config.mongoDB.port}/${config.mongoDB.database}?authSource=${config.mongoDB.authSource}`)
+	.then(() => {
+		console.log("Connected to MongoDB database.");
+		client.login(config.discord.token);
+	});

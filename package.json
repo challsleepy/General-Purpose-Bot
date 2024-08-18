@@ -4,6 +4,7 @@
     "discord-api-types": "^0.37.92",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
-    "gcommands": "^10.0.0"
+    "gcommands": "^10.0.0",
+    "mongoose": "^8.5.3"
   }
 }
