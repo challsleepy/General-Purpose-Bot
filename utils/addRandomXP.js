@@ -41,4 +41,5 @@ async function addRandomXP(user, ctx) {
 
 module.exports = {
     addRandomXP,
+    xpLevels
 };

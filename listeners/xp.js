@@ -21,7 +21,9 @@ new Listener({
                     });
                 }
 
+
                 addRandomXP(user, ctx);
+
             })
     }
 })
