@@ -11,7 +11,7 @@ new Listener({
 
         // Get the user from the database
         xpUser.findById(`${ctx.author.id}_${ctx.guild.id}`)
-            .then(user => {
+            .then(async user => {
                 // If the user is not in the database, create a new user
                 if (!user) {
                     user = new xpUser({
@@ -21,8 +21,7 @@ new Listener({
                     });
                 }
 
-
-                addRandomXP(user, ctx);
+                await addRandomXP(user, ctx);
 
             })
     }

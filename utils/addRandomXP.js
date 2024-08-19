@@ -1,4 +1,5 @@
 // ? Function that accepts user mongoose object and adds random xp to it in range 15-30, then saves it to the database
+const config = require('../config.json');
 const { addCooldown, isOnCooldown } = require('./cooldown.js');
 
 /**
@@ -27,14 +28,22 @@ async function addRandomXP(user, ctx) {
 
     // If the user has enough xp to level up
     if (user.current_xp >= xpLevels[user.current_level]) {
+
         // Add 1 to the user's current_level
         user.current_level += 1;
         // Reset the user's current_xp
         user.current_xp = user.current_xp - xpLevels[user.current_level - 1];
-        // Send a message to the user
-        ctx.author.send(`Congratulations! You have leveled up to level ${user.current_level}!`);
+        // Check if config.discord.levelRoles array to check if user current_level is in it (element.level). Then give the role with id element.roleId
+        config.discord.levelRoles.forEach(async role => {
+            if (role.level === user.current_level) {
+                await ctx.member.roles.add(role.roleId);
+            }
+        });
+        // Get levelup channel id from config and send a message
+        const levelupChannel = await ctx.guild.channels.fetch(config.discord.levelupChannelId);
+        await levelupChannel.send(`Congratulations <@${ctx.author.id}>! You have leveled up to level ${user.current_level}!`);
     }
- 
+
     // Save the user to the database
     await user.save();
 }
