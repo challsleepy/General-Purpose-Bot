@@ -22,7 +22,8 @@ async function generateRankCard(userId, serverId, roleColor) {
     const height = 200;
     const cv = canvas.createCanvas(width, height);
     const ctx = cv.getContext('2d');
-    ctx.scale(2, 2);
+    ctx.scale(2, 2)
+    // ctx.translate(0.5, 0.5);
 
     // Draw background
     ctx.fillStyle = '#222222';
@@ -47,11 +48,11 @@ async function generateRankCard(userId, serverId, roleColor) {
     ctx.closePath();
 
     // Level text
-    ctx.font = 'bold 10px sans-serif';
+    ctx.font = 'bold 15px sans-serif';
     ctx
     ctx.fillStyle = '#eeeeee';
     ctx.textAlign = 'center';
-    ctx.fillText(`Lvl. ${level}`, 50, 47);
+    ctx.fillText(`${level}`, 50, 47);
 
     // XP text
     ctx.font = '6px sans-serif';
