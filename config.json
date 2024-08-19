@@ -2,7 +2,14 @@
     "discord": {
         "token": "DISCORD_BOT_TOKEN",
         "suggestionsChannelId": "SUGGESTIONS_CHANNEL_ID",
-        "devGuildId": "DEVELOPMENT_GUILD_ID"
+        "devGuildId": "DEVELOPMENT_GUILD_ID",
+        "levelupChannelId": "LEVELUP_CHANNEL_ID",
+        "levelRoles": [
+            {
+                "level": 5,
+                "roleId": "ROLE_ID"
+            }
+        ]
     },
     "mongoDB": {
         "host": "HOST",
