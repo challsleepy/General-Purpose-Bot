@@ -12,7 +12,7 @@ new Command({
         // Check if user exists in the database
         const user = await xpUser.findById(`${ctx.member.id}_${ctx.guild.id}`);
         if (!user) {
-            return ctx.send('You have no rank yet!');
+            return ctx.reply('You have no rank yet!');
         }
 
         const rankBuffer = await generateRankCard(ctx.member.id, ctx.guild.id, ctx.member.displayHexColor);
