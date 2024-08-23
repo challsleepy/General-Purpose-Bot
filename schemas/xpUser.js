@@ -6,4 +6,4 @@ const xpUser = new mongoose.Schema({
     current_level: Number,
 })
 
-module.exports = mongoose.model('xp-system', xpUser);
+module.exports = mongoose.model('XPUser', xpUser, 'xp-system');
