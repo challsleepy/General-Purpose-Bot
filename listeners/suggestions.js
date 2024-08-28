@@ -7,7 +7,7 @@ new Listener({
 
     run: async ctx => {
         if (ctx.author.bot) return;
-        if (ctx.channel.id === config.suggestionsChannelId) {
+        if (ctx.channel.id === config.discord.suggestionsChannelId) {
             try {
                 await ctx.delete();
                 const message = await ctx.channel.send({

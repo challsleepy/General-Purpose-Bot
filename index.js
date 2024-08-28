@@ -33,7 +33,7 @@ const client = new GClient({
 	// Set the prefix for message commands
 	messagePrefix: '!',
 	// Set the guild where you will be developing your bot. This is usefull cause guild slash commands update instantly.
-	devGuildId: config.devGuildId,
+	devGuildId: config.discord.devGuildId,
 	// Set the intents you will be using (https://discordjs.guide/popular-topics/intents.html#gateway-intents)
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
 });
