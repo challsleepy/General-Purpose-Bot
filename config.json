@@ -17,6 +17,7 @@
         "username": "DATABASE_USER",
         "password": "DATABASE_USER_PASS",
         "database": "DATABASE_NAME",
-        "authSource": "AUTH_DATABASE"
+        "authSource": "AUTH_DATABASE",
+        "xpCollectionName": "XP_COLLECTION"
     }
 }
