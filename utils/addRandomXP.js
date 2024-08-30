@@ -21,7 +21,7 @@ async function addRandomXP(user, ctx) {
     // Check if user is in cooldown
     if (isOnCooldown(ctx.author.id)) return;
 
-    // Add random xp in range 15-30 to user
+    // Add random xp in range 15-30 to user if the user isnt in cooldown
     user.current_xp += Math.floor(Math.random() * 16) + 15;
     // Add the user to the cooldown (1 minute)
     addCooldown(ctx.author.id, 60000);

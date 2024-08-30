@@ -35,7 +35,7 @@ new Command({
         }
 
 
-        const rankBuffer = await generateRankCard(user.id, ctx.guild.id, user.displayHexColor);
+        const rankBuffer = await generateRankCard(user.id, ctx.guild.id, user.displayHexColor, user.displayAvatarURL({ extension: 'png' }));
 
         // Send the rank card to the user
         await ctx.reply({
