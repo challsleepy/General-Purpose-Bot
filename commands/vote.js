@@ -17,8 +17,9 @@ new Command({
     ],
     run: async (ctx) => {
         try {
+            await ctx.deferReply();
             if (await mowTournamentStatus() === false) {
-                return ctx.reply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
+                return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
             }
 
             // Extract the user from the arguments
@@ -30,20 +31,20 @@ new Command({
             const voterXPProfile = await xpUser.findById(`${ctx.user.id}_${ctx.guild.id}`);
 
             if (user.id === ctx.member.id) {
-                voterXPProfile.mow_points -= 1;
+                voterXPProfile.mow_points = voterXPProfile.mow_points ? voterXPProfile.mow_points - 5 : -5;
                 try {
                     await voterXPProfile.save();
 
                     const embed = new MessageEmbed()
                         .setTitle('You really thought')
-                        .setDescription('-1 point for even trying')
+                        .setDescription('-5 points for even trying')
                         .setImage('https://media1.tenor.com/m/w0dZ4Eltk7IAAAAC/vuknok.gif')
                         .setColor('#FFBF00')
                         .setTimestamp();
-                    return ctx.reply({ embeds: [embed] });
+                    return ctx.editReply({ embeds: [embed] });
                 } catch (err) {
                     console.error(err);
-                    ctx.reply({ content: 'An error occurred, try again in a bit', ephemeral: true });
+                    ctx.editReply({ content: 'An error occurred, try again in a bit', ephemeral: true });
                 }
             }
 
@@ -53,18 +54,20 @@ new Command({
                     .setDescription('<a:finger_wave:1279223856892084265> You have already voted for someone this week')
                     .setColor('#FFBF00')
                     .setTimestamp();
-                return ctx.reply({ embeds: [embed] });
+                return ctx.editReply({ embeds: [embed] });
             }
 
             // Get the user's xp profile
             const userXPProfile = await xpUser.findById(`${user.id}_${ctx.guild.id}`);
 
             if (!userXPProfile) {
-                return ctx.reply({ content: 'This person needs to send a message first', ephemeral: true }); 
+                return ctx.editReply({ content: 'This person needs to send a message first', ephemeral: true }); 
             }
 
             // Add 10 mowpoints to the user
             userXPProfile.mow_points = userXPProfile.mow_points ? userXPProfile.mow_points + 10 : 10
+            // Add 1 vote to the user
+            userXPProfile.votes = userXPProfile.votes ? userXPProfile.votes + 1 : 1;
             // Set the user's voted to true
             voterXPProfile.voted = true;
             // Save the voters and user's profile to the database
@@ -77,10 +80,10 @@ new Command({
                 .setDescription(`You're so kind <a:pleadcry:1279219431452704839>. <@${user.id}> has received 10 points.`)
                 .setColor('#FFBF00')
                 .setTimestamp();
-            ctx.reply({ embeds: [embed] });
+            ctx.editReply({ embeds: [embed] });
         } catch (err) {
             console.error(err);
-            ctx.reply({ content: 'An error occurred while trying to vote for the user' });
+            ctx.editReply({ content: 'An error occurred while trying to vote for the user' });
         }
     }
 });

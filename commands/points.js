@@ -16,8 +16,9 @@ new Command({
     ],
     run: async (ctx) => {
         try {
+            await ctx.deferReply();
             if (await mowTournamentStatus() === false) {
-                return ctx.reply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
+                return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
             }
 
             // Extract the user from the arguments
@@ -29,9 +30,9 @@ new Command({
 
             if (!userXPProfile || !userXPProfile.mow_points) {
                 if (user.id !== ctx.user.id) {
-                    return ctx.reply({ content: 'This person doesnt have any points :sob:' });
+                    return ctx.editReply({ content: 'This person doesnt have any points :sob:' });
                 } else {
-                    return ctx.reply({ content: 'You dont have any points. Stop slacking' });
+                    return ctx.editReply({ content: 'You dont have any points. Stop slacking' });
                 }
             }
 
@@ -46,17 +47,19 @@ new Command({
                 embed.setDescription(`<:purplecandy:1279200461936918578> <@${user.id}> has ${userXPProfile.mow_points.toFixed(2)} points! <:cyancandy:1279200429594644562>`);
             }
 
-            await ctx.reply({ embeds: [embed] })
+            await ctx.editReply({ embeds: [embed] })
 
-            if (userXPProfile.mow_points < 0) {
-                setTimeout(() => {
+            if (user.id === ctx.user.id && userXPProfile.mow_points < 0) {
+                setTimeout(async() => {
+                    embed.setImage('https://media1.tenor.com/m/ASGuOCPGrKEAAAAd/kekw-kek.gif')
+                    await ctx.editReply({ embeds: [embed] });
                     ctx.channel.send({ content: 'Oh wait..youre in the negatives... :joy::index_pointing_at_the_viewer:' });
                 }, 3000);
             }
 
         } catch (err) {
             console.error(err);
-            ctx.reply({ content: 'An error occurred while trying to get your points' });
+            ctx.editReply({ content: 'An error occurred while trying to get your points' });
         }
     }
 });

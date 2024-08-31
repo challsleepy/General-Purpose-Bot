@@ -13,10 +13,11 @@ new Command({
     type: [CommandType.SLASH],
     run: async (ctx) => {
         try {
+            await ctx.deferReply();
 
             console.log(await mowTournamentStatus())
             if (await mowTournamentStatus() === false) {
-                return ctx.reply({ content: 'Member of the week tournament has not started yet' });
+                return ctx.editReply({ content: 'Member of the week tournament has not started yet' });
             }
 
             // Get all users sorted by mow_points in descending order
@@ -37,7 +38,7 @@ new Command({
                 const user = users[index];
                 if (index < 10) {
                     const member = await ctx.guild.members.fetch(user._id.split('_')[0]);
-                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points` });
+                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
                 }
             }
 
@@ -64,7 +65,7 @@ new Command({
             return ctx.channel.send({ content: 'Member of the week tournament has stopped' });
         } catch (err) {
             console.error(err);
-            return ctx.reply({ content: 'An error occurred while trying to stop the member of the week tournament' });
+            return ctx.editReply({ content: 'An error occurred while trying to stop the member of the week tournament' });
         }
 
     }

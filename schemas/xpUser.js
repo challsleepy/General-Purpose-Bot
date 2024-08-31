@@ -6,7 +6,8 @@ const xpUser = new mongoose.Schema({
     current_xp: Number,
     current_level: Number,
     mow_points: Number,
-    voted: Boolean
+    voted: Boolean,
+    votes: Number
 })
 
 module.exports = mongoose.model('XPUser', xpUser, config.mongoDB.xpCollectionName);

@@ -10,12 +10,13 @@ new Command({
     type: [CommandType.SLASH],
     run: async (ctx) => {
         try {
+            await ctx.deferReply();
             if (await mowTournamentStatus() === false) {
-                return ctx.reply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
+                return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
             }
 
             // Get all users sorted by mow_points in descending order
-            const users = await xpUser.find({ mow_points: { $exists: true } }).sort({ mow_points: -1 });
+            const users = await xpUser.find({ mow_points: { $exists: true } }).sort({ mow_points: -1, votes: -1 });
 
             // Create an embed to send the leaderboard
             const embed = new MessageEmbed()
@@ -32,16 +33,16 @@ new Command({
                 const user = users[index];
                 if (index < 10) {
                     const member = await ctx.guild.members.fetch(user._id.split('_')[0]);
-                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points` });
+                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
                 }
             }
 
             // Send the embed
-            await ctx.reply({ embeds: [embed] });
+            await ctx.editReply({ embeds: [embed] });
 
         } catch (err) {
             console.error(err);
-            ctx.reply({ content: 'An error occurred while trying to get the leaderboard' });
+            ctx.editReply({ content: 'An error occurred while trying to get the leaderboard' });
         }
     }
 });

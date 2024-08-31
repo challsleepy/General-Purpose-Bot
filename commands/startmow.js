@@ -11,9 +11,10 @@ new Command({
     type: [CommandType.SLASH],
     run: async (ctx) => {
         try {
+            await ctx.deferReply();
 
             if (await mowTournamentStatus() === true) {
-                return ctx.reply({ content: 'Member of the week tournament has already started' });
+                return ctx.editReply({ content: 'Member of the week tournament has already started' });
             }
 
             const xpConfigDoc = await xpConfig.findById('config');
@@ -24,10 +25,10 @@ new Command({
                 await xpConfig.create({ _id: 'config', mowTournamentStatus: true });
             }
 
-            ctx.reply({ content: 'Member of the week tournament has started' });
+            ctx.editReply({ content: 'Member of the week tournament has started' });
         } catch (err) {
             console.error(err);
-            ctx.reply({ content: 'An error occurred while trying to start the member of the week tournament' });
+            ctx.editReply({ content: 'An error occurred while trying to start the member of the week tournament' });
         }
     }
 });
