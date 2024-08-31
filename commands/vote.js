@@ -51,7 +51,7 @@ new Command({
             if (voterXPProfile.voted) {
                 const embed = new MessageEmbed()
                     .setTitle('Nuh uh')
-                    .setDescription('<a:finger_wave:1279223856892084265> You have already voted for someone this week')
+                    .setDescription('<a:finger_wave:1279526590811865120> You have already voted for someone this week')
                     .setColor('#FFBF00')
                     .setTimestamp();
                 return ctx.editReply({ embeds: [embed] });
@@ -77,7 +77,7 @@ new Command({
             // Send a message to the user
             const embed = new MessageEmbed()
                 .setTitle('Wooo')
-                .setDescription(`You're so kind <a:pleadcry:1279219431452704839>. <@${user.id}> has received 10 points.`)
+                .setDescription(`You're so kind <a:pleadcry:1279526558855598184>. <@${user.id}> has received 10 points.`)
                 .setColor('#FFBF00')
                 .setTimestamp();
             ctx.editReply({ embeds: [embed] });

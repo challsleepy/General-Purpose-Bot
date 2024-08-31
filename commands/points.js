@@ -38,13 +38,13 @@ new Command({
 
             const embed = new MessageEmbed()
                 .setTitle('Points')
-                .setDescription(`<:purplecandy:1279200461936918578> You've got ${userXPProfile.mow_points.toFixed(2)} points! <:cyancandy:1279200429594644562>`)
+                .setDescription(`<:purple_candy:1279057588822216835> You've got ${userXPProfile.mow_points.toFixed(2)} points! <:cyancandy:1279200429594644562>`)
                 .setImage('https://media.tenor.com/x5jwK4cZEnsAAAAM/pepe-hype-hands-up.gif')
                 .setColor('#FFBF00')
                 .setTimestamp();
 
             if (user.id !== ctx.user.id) {
-                embed.setDescription(`<:purplecandy:1279200461936918578> <@${user.id}> has ${userXPProfile.mow_points.toFixed(2)} points! <:cyancandy:1279200429594644562>`);
+                embed.setDescription(`<:purple_candy:1279057588822216835> <@${user.id}> has ${userXPProfile.mow_points.toFixed(2)} points! <:cyan_candy:1279057698482290778>`);
             }
 
             await ctx.editReply({ embeds: [embed] })
