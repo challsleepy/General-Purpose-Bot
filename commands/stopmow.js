@@ -43,7 +43,7 @@ new Command({
             }
 
             // Send the embed
-            await ctx.channel.send({ embeds: [embed] });
+            await ctx.editReply({ embeds: [embed] });
             // Go through each user and delete their mow_points and voted fields if exist
             await xpUser.updateMany({}, { $unset: { mow_points: "", voted: "" } })
                 .then(() => {
