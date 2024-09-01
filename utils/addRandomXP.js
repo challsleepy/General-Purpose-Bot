@@ -49,6 +49,9 @@ async function addRandomXP(user, ctx) {
         await levelupChannel.send(`Congratulations <@${ctx.author.id}>! You have leveled up to level ${user.current_level}!`);
     }
 
+    user.displayHex = ctx.member.displayHexColor;
+    user.displayURL = ctx.member.displayAvatarURL({ extension: 'png' });
+    user.displayName = ctx.member.displayName;
     // Save the user to the database
     await user.save();
 }

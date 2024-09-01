@@ -83,7 +83,7 @@ new Command({
             ctx.editReply({ embeds: [embed] });
         } catch (err) {
             console.error(err);
-            ctx.editReply({ content: 'An error occurred while trying to vote for the user' });
+            return ctx.channel.send({ content: 'An error occurred while trying to vote for the user' });
         }
     }
 });

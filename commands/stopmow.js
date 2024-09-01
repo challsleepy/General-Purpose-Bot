@@ -45,7 +45,7 @@ new Command({
             // Send the embed
             await ctx.editReply({ embeds: [embed] });
             // Go through each user and delete their mow_points and voted fields if exist
-            await xpUser.updateMany({}, { $unset: { mow_points: "", voted: "" } })
+            await xpUser.updateMany({}, { $unset: { mow_points: "", voted: "", votes: "" } })
                 .then(() => {
                     console.log('Fields removed from all users successfully');
                 })
@@ -65,7 +65,7 @@ new Command({
             return ctx.channel.send({ content: 'Member of the week tournament has stopped' });
         } catch (err) {
             console.error(err);
-            return ctx.editReply({ content: 'An error occurred while trying to stop the member of the week tournament' });
+            return ctx.channel.send({ content: 'An error occurred while trying to stop the member of the week tournament' });
         }
 
     }

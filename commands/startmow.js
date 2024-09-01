@@ -28,7 +28,7 @@ new Command({
             ctx.editReply({ content: 'Member of the week tournament has started' });
         } catch (err) {
             console.error(err);
-            ctx.editReply({ content: 'An error occurred while trying to start the member of the week tournament' });
+            return ctx.channel.send({ content: 'An error occurred while trying to start the member of the week tournament' });
         }
     }
 });

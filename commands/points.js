@@ -59,7 +59,7 @@ new Command({
 
         } catch (err) {
             console.error(err);
-            ctx.editReply({ content: 'An error occurred while trying to get your points' });
+            return ctx.channel.send({ content: 'An error occurred while trying to get your points' });
         }
     }
 });
