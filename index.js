@@ -4,7 +4,6 @@ const { GatewayIntentBits } = require('discord.js');
 const { join } = require('path');
 const config = require('./config.json')
 const mongoose = require('mongoose');
-const XPUser = require('./schemas/xpUser');
 
 // Set the default cooldown for commands
 // Command.setDefaults({
