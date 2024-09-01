@@ -1,16 +1,43 @@
 // Sends member of the week leaderboard. Sorted from points high to low in an embed
 // Compare this snippet from commands/mowleaderboard.js:
-const { Command, CommandType, MessageEmbed } = require('gcommands');
+const { Command, CommandType, MessageEmbed, Argument, ArgumentType } = require('gcommands');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const xpUser = require('../schemas/xpUser');
 const mowTournamentStatus = require('../utils/mowTournamentStatus');
 
 new Command({
     name: 'leaderboard',
-    description: 'Sends member of the week leaderboard',
+    description: 'Sends leaderboard',
     type: [CommandType.SLASH],
+    arguments: [
+        new Argument({
+            name: 'type',
+            description: 'Type of leaderboard',
+            choices: [
+                { name: 'Server', value: 'server' },
+                { name: 'Member Of The Week', value: 'mow' }
+            ],
+            type: ArgumentType.STRING,
+            required: true,
+        })
+    ],
     run: async (ctx) => {
         try {
             await ctx.deferReply();
+
+            const leaderboardType = ctx.arguments.get('type').value;
+            // Send embed with link button component to https://ranks.codenchill.org
+            if (leaderboardType === 'server') {
+                const buttonRow = new ActionRowBuilder().addComponents([
+                    new ButtonBuilder()
+                        .setLabel('Leaderboard')
+                        .setURL('https://ranks.codenchill.org')
+                        .setStyle(ButtonStyle.Link)
+                ])
+
+                return ctx.editReply({ content: "Check out the server leaderboard here", components: [buttonRow] });
+            }
+
             if (await mowTournamentStatus() === false) {
                 return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
             }
@@ -33,7 +60,7 @@ new Command({
                 const user = users[index];
                 if (index < 10) {
                     const member = await ctx.guild.members.fetch(user._id.split('_')[0]);
-                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
+                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes` : "| 0 votes"}` });
                 }
             }
 
