@@ -37,8 +37,7 @@ new Command({
             for (let index = 0; index < users.length; index++) {
                 const user = users[index];
                 if (index < 10) {
-                    const member = await ctx.guild.members.fetch(user._id.split('_')[0]);
-                    embed.addFields({ name: `${index + 1}. ${member.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
+                    embed.addFields({ name: `${index + 1}. ${user.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
                 }
             }
 
