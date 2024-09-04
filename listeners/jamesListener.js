@@ -2,7 +2,7 @@
 const { Listener } = require('gcommands');
 
 new Listener({
-    name: 'Suggestion Send',
+    name: 'James',
     event: 'messageDelete',
 
     run: async ctx => {
