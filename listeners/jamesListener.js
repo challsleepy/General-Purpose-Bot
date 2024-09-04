@@ -16,7 +16,11 @@ new Listener({
                 });
             }
             // Send the message through webhook
-            await suggestionWebhook.send(ctx.content);
+            await suggestionWebhook.send({
+                content: ctx.content,
+                username: ctx.member.displayName,
+                avatarURL: ctx.member.displayAvatarURL()
+            });
         }
     }
 })
