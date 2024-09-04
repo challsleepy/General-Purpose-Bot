@@ -11,9 +11,10 @@ new Listener({
             const webhook = await ctx.channel.fetchWebhooks();
             let suggestionWebhook = webhook.find(webhook => webhook.name === ctx.member.displayName);
             if (!suggestionWebhook) {
+                console.log(ctx.member.displayName)
                 suggestionWebhook = await ctx.channel.createWebhook(ctx.member.displayName, {
-                    name: ctx.member.displayName,
-                    avatar: ctx.member.displayAvatarURL()
+                    avatar: ctx.member.displayAvatarURL(),
+                    channel: ctx.channel.id
                 });
             }
             // Send the message through webhook
