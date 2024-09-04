@@ -15,7 +15,8 @@ new Listener({
             await jamesWebhook.send({
                 content: ctx.content,
                 username: ctx.member.displayName,
-                avatarURL: ctx.member.displayAvatarURL()
+                avatarURL: ctx.member.displayAvatarURL(),
+                files: ctx.attachments.map(attachment => attachment.url)
             });
         }
     }
