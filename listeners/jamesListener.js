@@ -12,6 +12,7 @@ new Listener({
             let suggestionWebhook = webhook.find(webhook => webhook.name === ctx.member.displayName);
             if (!suggestionWebhook) {
                 suggestionWebhook = await ctx.channel.createWebhook(ctx.member.displayName, {
+                    name: ctx.member.displayName,
                     avatar: ctx.member.displayAvatarURL()
                 });
             }
