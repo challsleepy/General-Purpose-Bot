@@ -1,5 +1,5 @@
 // Listener to check for message edit and send webhook message with same avatar and content
-// const { Listener } = require('gcommands');
+const { Listener } = require('gcommands');
 
 new Listener({
     name: 'Edit Listener',
