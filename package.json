@@ -6,6 +6,7 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "gcommands": "^10.0.0",
-    "mongoose": "^8.5.3"
+    "mongoose": "^8.5.3",
+    "pet-pet-gif": "^1.0.9"
   }
 }
