@@ -1,6 +1,7 @@
 // Command to start member of the week tournament. It sets the mowTournamentStatus to true in the config file
 
-const { Command, CommandType, PermissionFlagsBits } = require('gcommands');
+const { Command, CommandType } = require('gcommands');
+const { PermissionFlagsBits } = require('discord.js');
 const mowTournamentStatus = require('../utils/mowTournamentStatus');
 const xpConfig = require('../schemas/xpConfig');
 
