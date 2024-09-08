@@ -1,13 +1,13 @@
 // Command to start member of the week tournament. It sets the mowTournamentStatus to true in the config file
 
-const { Command, CommandType, MessageEmbed } = require('gcommands');
+const { Command, CommandType, PermissionFlagsBits } = require('gcommands');
 const mowTournamentStatus = require('../utils/mowTournamentStatus');
-const xpUser = require('../schemas/xpUser');
 const xpConfig = require('../schemas/xpConfig');
 
 new Command({
     name: 'startmow',
     description: 'Starts the member of the week tournament',
+    defaultMemberPermissions: [PermissionFlagsBits.Administrator],
     type: [CommandType.SLASH],
     run: async (ctx) => {
         try {
