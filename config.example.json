@@ -1,0 +1,24 @@
+{
+    "discord": {
+        "token": "DISCORD_BOT_TOKEN",
+        "suggestionsChannelId": "SUGGESTIONS_CHANNEL_ID",
+        "devGuildId": "DEVELOPMENT_GUILD_ID",
+        "levelupChannelId": "LEVELUP_CHANNEL_ID",
+        "welcomeChannelId": "WELCOME_CHANNEL_ID",
+        "levelRoles": [
+            {
+                "level": 5,
+                "roleId": "ROLE_ID"
+            }
+        ]
+    },
+    "mongoDB": {
+        "host": "HOST",
+        "port": "27017",
+        "username": "DATABASE_USER",
+        "password": "DATABASE_USER_PASS",
+        "database": "DATABASE_NAME",
+        "authSource": "AUTH_DATABASE",
+        "xpCollectionName": "XP_COLLECTION"
+    }
+}
