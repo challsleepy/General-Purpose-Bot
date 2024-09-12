@@ -5,6 +5,8 @@
         "devGuildId": "DEVELOPMENT_GUILD_ID",
         "levelupChannelId": "LEVELUP_CHANNEL_ID",
         "welcomeChannelId": "WELCOME_CHANNEL_ID",
+        "countChannelId": "COUNT_CHANNEL_ID",
+        "countChannelWebhook": "WEBHOOK_URL",
         "levelRoles": [
             {
                 "level": 5,
@@ -19,6 +21,7 @@
         "password": "DATABASE_USER_PASS",
         "database": "DATABASE_NAME",
         "authSource": "AUTH_DATABASE",
-        "xpCollectionName": "XP_COLLECTION"
+        "xpCollectionName": "XP_COLLECTION",
+        "countersCollectionName": "COUNTERS_COLLECTION"
     }
 }

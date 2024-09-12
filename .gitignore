@@ -3,6 +3,3 @@ node_modules/
 
 # Ignore config.json
 config.json
-
-countSchema.js
-count.js
