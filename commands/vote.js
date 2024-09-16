@@ -81,7 +81,7 @@ new Command({
             // Add the vote user's ID to the voter's votedMembers array. Check if array exists first
             voterXPProfile.votedMembers = voterXPProfile.votedMembers ? voterXPProfile.votedMembers.concat(user.id) : [user.id];
             // Remove 1 vote from the voter
-            voterXPProfile.votesLeft = userXPProfile.votesLeft ? voterXPProfile.votesLeft - 1 : config.discord.voteCount - 1;
+            voterXPProfile.votesLeft = voterXPProfile.votesLeft ? voterXPProfile.votesLeft - 1 : config.discord.voteCount - 1;
             // Save the voters and user's profile to the database
             await voterXPProfile.save();
             await userXPProfile.save();
