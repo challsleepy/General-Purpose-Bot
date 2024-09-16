@@ -28,7 +28,7 @@ new Command({
 
             const userXPProfile = await xpUser.findById(`${user.id}_${ctx.guild.id}`);
 
-            if (!userXPProfile || !userXPProfile.mow_points) {
+            if (!userXPProfile || !userXPProfile.mowPoints) {
                 if (user.id !== ctx.user.id) {
                     return ctx.editReply({ content: 'This person doesnt have any points :sob:' });
                 } else {
@@ -38,18 +38,18 @@ new Command({
 
             const embed = new MessageEmbed()
                 .setTitle('Points')
-                .setDescription(`<:purple_candy:1279057588822216835> You've got ${userXPProfile.mow_points.toFixed(2)} points! <:cyan_candy:1279057698482290778>`)
+                .setDescription(`<:purple_candy:1279057588822216835> You've got ${userXPProfile.mowPoints.toFixed(2)} points! <:cyan_candy:1279057698482290778>`)
                 .setImage('https://media.tenor.com/x5jwK4cZEnsAAAAM/pepe-hype-hands-up.gif')
                 .setColor('#FFBF00')
                 .setTimestamp();
 
             if (user.id !== ctx.user.id) {
-                embed.setDescription(`<:purple_candy:1279057588822216835> <@${user.id}> has ${userXPProfile.mow_points.toFixed(2)} points! <:cyan_candy:1279057698482290778>`);
+                embed.setDescription(`<:purple_candy:1279057588822216835> <@${user.id}> has ${userXPProfile.mowPoints.toFixed(2)} points! <:cyan_candy:1279057698482290778>`);
             }
 
             await ctx.editReply({ embeds: [embed] })
 
-            if (user.id === ctx.user.id && userXPProfile.mow_points < 0) {
+            if (user.id === ctx.user.id && userXPProfile.mowPoints < 0) {
                 setTimeout(async() => {
                     embed.setImage('https://media1.tenor.com/m/ASGuOCPGrKEAAAAd/kekw-kek.gif')
                     await ctx.editReply({ embeds: [embed] });

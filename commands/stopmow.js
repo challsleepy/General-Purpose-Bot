@@ -1,4 +1,4 @@
-// Command to stop member of the week tournament. It sends leaderboard of the tournament and then deletes all the mow_points and vote status from the database
+// Command to stop member of the week tournament. It sends leaderboard of the tournament and then deletes all the mowPoints and vote status from the database
 
 const { Command, CommandType, MessageEmbed } = require('gcommands');
 const xpUser = require('../schemas/xpUser');
@@ -20,8 +20,8 @@ new Command({
                 return ctx.editReply({ content: 'Member of the week tournament has not started yet' });
             }
 
-            // Get all users sorted by mow_points in descending order
-            const users = await xpUser.find({ mow_points: { $exists: true } }).sort({ mow_points: -1 });
+            // Get all users sorted by mowPoints in descending order
+            const users = await xpUser.find({ mowPoints: { $exists: true } }).sort({ mowPoints: -1 });
 
             // Create an embed to send the leaderboard
             const embed = new MessageEmbed()
@@ -37,14 +37,14 @@ new Command({
             for (let index = 0; index < users.length; index++) {
                 const user = users[index];
                 if (index < 10) {
-                    embed.addFields({ name: `${index + 1}. ${user.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
+                    embed.addFields({ name: `${index + 1}. ${user.displayName}`, value: `${user.mowPoints.toFixed(2)} points ${user.votes ? `| ${user.votes} votes`:"| 0 votes"}` });
                 }
             }
 
             // Send the embed
             await ctx.editReply({ embeds: [embed] });
-            // Go through each user and delete their mow_points and voted fields if exist
-            await xpUser.updateMany({}, { $unset: { mow_points: "", voted: "", votes: "" } })
+            // Go through each user and delete their mowPoints and voted fields if exist
+            await xpUser.updateMany({}, { $unset: { mowPoints: "", votesLeft: "", votes: "", votedMembers: "" } })
                 .then(() => {
                     console.log('Fields removed from all users successfully');
                 })

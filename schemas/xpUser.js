@@ -5,9 +5,10 @@ const xpUser = new mongoose.Schema({
     _id: String,
     current_xp: Number,
     current_level: Number,
-    mow_points: Number,
-    voted: Boolean,
+    mowPoints: Number,
+    votesLeft: Number,
     votes: Number,
+    votedMembers: Array,
     displayHex: String,
     displayURL: String,
     displayName: String

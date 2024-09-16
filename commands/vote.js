@@ -2,6 +2,7 @@
 const { Command, CommandType, Argument, ArgumentType, MessageEmbed } = require('gcommands');
 const xpUser = require('../schemas/xpUser');
 const mowTournamentStatus = require('../utils/mowTournamentStatus');
+const config = require('../config.json');
 
 new Command({
     name: 'vote',
@@ -31,7 +32,7 @@ new Command({
             const voterXPProfile = await xpUser.findById(`${ctx.user.id}_${ctx.guild.id}`);
 
             if (user.id === ctx.member.id) {
-                voterXPProfile.mow_points = voterXPProfile.mow_points ? voterXPProfile.mow_points - 5 : -5;
+                voterXPProfile.mowPoints = voterXPProfile.mowPoints ? voterXPProfile.mowPoints - 5 : -5;
                 try {
                     await voterXPProfile.save();
 
@@ -48,10 +49,19 @@ new Command({
                 }
             }
 
-            if (voterXPProfile.voted) {
+            if (voterXPProfile.votesLeft === 0) {
                 const embed = new MessageEmbed()
                     .setTitle('Nuh uh')
-                    .setDescription('<a:finger_wave:1279526590811865120> You have already voted for someone this week')
+                    .setDescription('<a:finger_wave:1279526590811865120> You have used up your votes for today')
+                    .setColor('#FFBF00')
+                    .setTimestamp();
+                return ctx.editReply({ embeds: [embed] });
+            }
+
+            if (voterXPProfile.votedMembers && voterXPProfile.votedMembers.includes(user.id)) {
+                const embed = new MessageEmbed()
+                    .setTitle('Nuh uh')
+                    .setDescription('<a:finger_wave:1279526590811865120> You have already voted for this person today')
                     .setColor('#FFBF00')
                     .setTimestamp();
                 return ctx.editReply({ embeds: [embed] });
@@ -65,11 +75,13 @@ new Command({
             }
 
             // Add 10 mowpoints to the user
-            userXPProfile.mow_points = userXPProfile.mow_points ? userXPProfile.mow_points + 10 : 10
+            userXPProfile.mowPoints = userXPProfile.mowPoints ? userXPProfile.mowPoints + 10 : 10
             // Add 1 vote to the user
             userXPProfile.votes = userXPProfile.votes ? userXPProfile.votes + 1 : 1;
-            // Set the user's voted to true
-            voterXPProfile.voted = true;
+            // Add the vote user's ID to the voter's votedMembers array. Check if array exists first
+            voterXPProfile.votedMembers = voterXPProfile.votedMembers ? voterXPProfile.votedMembers.concat(user.id) : [user.id];
+            // Remove 1 vote from the voter
+            voterXPProfile.votesLeft = userXPProfile.votesLeft ? voterXPProfile.votesLeft - 1 : config.discord.voteCount - 1;
             // Save the voters and user's profile to the database
             await voterXPProfile.save();
             await userXPProfile.save();

@@ -4,6 +4,8 @@ const { GatewayIntentBits } = require('discord.js');
 const { join } = require('path');
 const config = require('./config.json')
 const mongoose = require('mongoose');
+const { CronJob } = require('cron');
+const xpUser = require('./schemas/xpUser');
 
 // Set the default cooldown for commands
 // Command.setDefaults({
@@ -43,4 +45,20 @@ mongoose.connect(`mongodb://${config.mongoDB.username}:${config.mongoDB.password
 	.then(() => {
 		console.log("Connected to MongoDB database.");
 		client.login(config.discord.token);
+
+		const job = new CronJob(
+			'0 0 * * *', // cronTime
+			async function () {
+				// Reset votesLeft for all users (set to voteCount value in config). Need to check if they have that field first
+				try {
+					await xpUser.updateMany({ votesLeft: { $exists: true } }, { $set: { votesLeft: config.discord.voteCount, votedMembers: [] } });
+					console.log('Reset votesLeft for all users. Emptied votedMembers array');
+				} catch (err) {
+					console.error(err);
+				}
+			}, // onTick
+			null, // onComplete
+			true, // start
+			'Africa/Lagos' // timeZone
+		);
 	});

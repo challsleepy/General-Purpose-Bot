@@ -45,8 +45,8 @@ new Command({
                     return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
                 }
 
-                // Get all users sorted by mow_points in descending order
-                const users = await xpUser.find({ mow_points: { $exists: true } }).sort({ mow_points: -1, votes: -1 });
+                // Get all users sorted by mowPoints in descending order
+                const users = await xpUser.find({ mowPoints: { $exists: true } }).sort({ mowPoints: -1, votes: -1 });
 
                 // Create an embed to send the leaderboard
                 const embed = new MessageEmbed()
@@ -62,7 +62,7 @@ new Command({
                 for (let index = 0; index < users.length; index++) {
                     const user = users[index];
                     if (index < 10) {
-                        embed.addFields({ name: `${index + 1}. ${user.displayName}`, value: `${user.mow_points.toFixed(2)} points ${user.votes ? `| ${user.votes} votes` : "| 0 votes"}` });
+                        embed.addFields({ name: `${index + 1}. ${user.displayName}`, value: `${user.mowPoints.toFixed(2)} points ${user.votes ? `| ${user.votes} votes` : "| 0 votes"}` });
                     }
                 }
 

@@ -26,7 +26,7 @@ async function addRandomXP(user, ctx) {
     user.current_xp += Math.floor(Math.random() * 16) + 15;
     // Add 0.2 mowpoints to the user if the mowTournamentStatus is true
     if (await mowTournamentStatus() === true) { 
-        user.mow_points = user.mow_points ? user.mow_points + 0.2 : 0.2;
+        user.mowPoints = user.mowPoints ? user.mowPoints + 0.2 : 0.2;
     }
     // Add the user to the cooldown (1 minute)
     addCooldown(ctx.author.id, 60000);
