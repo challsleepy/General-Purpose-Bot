@@ -18,7 +18,10 @@ new Command({
     ],
     run: async (ctx) => {
         try {
-            await ctx.deferReply();
+            await ctx.deferReply({ ephemeral: true });
+            // ! Disable command
+            return ctx.editReply({ content: 'This command is disabled for now', ephemeral: true });
+
             if (await mowTournamentStatus() === false) {
                 return ctx.editReply({ content: 'This command is only available during member of the week competitions!', ephemeral: true });
             }
