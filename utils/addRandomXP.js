@@ -20,7 +20,7 @@ const xpLevels = [100, 155, 220, 295, 380, 475, 580, 695, 820, 955, 1100, 1260, 
 
 async function addRandomXP(user, ctx) {
     // Check if user is in cooldown
-    if (isOnCooldown(ctx.author.id)) return;
+    if (isOnCooldown(ctx.author.id) || config.discord.noXPChannels.includes(ctx.channel.id)) return;
 
     // Add random xp in range 15-30 to user if the user isnt in cooldown
     user.current_xp += Math.floor(Math.random() * 16) + 15;

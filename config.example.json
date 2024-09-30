@@ -8,6 +8,7 @@
         "countChannelWebhook": "WEBHOOK_URL",
         "voteCount": "VOTE_THRESHOLD",
         "levelupChannelId": "LEVELUP_CHANNEL_ID",
+        "noXPChannels": [],
         "levelRoles": [
             {
                 "level": 5,
@@ -23,6 +24,7 @@
         "database": "DATABASE_NAME",
         "authSource": "AUTH_DATABASE",
         "xpCollectionName": "XP_COLLECTION",
-        "countersCollectionName": "COUNTERS_COLLECTION"
+        "countersCollectionName": "COUNTERS_COLLECTION",
+        "editorSessionsCollectionName": "EDITOR_SESSIONS_COLLECTION"
     }
 }

@@ -11,7 +11,12 @@ const xpUser = new mongoose.Schema({
     votedMembers: Array,
     displayHex: String,
     displayURL: String,
-    displayName: String
-})
+    displayName: String,
+    rankCard: {
+        progressBarColor: String,
+        background: String,
+        candyColor: String
+    }
+});
 
 module.exports = mongoose.model('XPUser', xpUser, config.mongoDB.xpCollectionName);

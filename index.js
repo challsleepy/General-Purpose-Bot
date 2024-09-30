@@ -46,6 +46,7 @@ mongoose.connect(`mongodb://${config.mongoDB.username}:${config.mongoDB.password
 		console.log("Connected to MongoDB database.");
 		client.login(config.discord.token);
 
+		// Reset votesLeft for all users every day at midnight
 		const job = new CronJob(
 			'0 0 * * *', // cronTime
 			async function () {
