@@ -6,6 +6,7 @@ const config = require('./config.json')
 const mongoose = require('mongoose');
 const { CronJob } = require('cron');
 const xpUser = require('./schemas/xpUser');
+const rankCardBackgrounds = require('./rankCardBackgrounds.json');
 
 // Set the default cooldown for commands
 // Command.setDefaults({
@@ -42,9 +43,52 @@ const client = new GClient({
 
 // Login to the discord API
 mongoose.connect(`mongodb://${config.mongoDB.username}:${config.mongoDB.password}@${config.mongoDB.host}:${config.mongoDB.port}/${config.mongoDB.database}?authSource=${config.mongoDB.authSource}`)
-	.then(() => {
+	.then(async () => {
 		console.log("Connected to MongoDB database.");
 		client.login(config.discord.token);
+
+		// Get all users with level 10 or above
+		const users = await xpUser.find({ current_level: { $gte: 10 } });
+		const userBackgroundsMap = new Map();
+
+		for (const user of users) {
+			// Calculate the number of batches based on the user's level
+			const numBatches = Math.floor((user.current_level - 10) / 5) + 1;
+			let backgroundsToGive = [];
+
+			for (let i = 0; i < numBatches; i++) {
+				// Randomly select 4-7 backgrounds
+				const numBackgrounds = Math.floor(Math.random() * 4) + 4; // 4 to 7
+				const shuffledBackgrounds = rankCardBackgrounds.backgrounds.sort(() => Math.random() - 0.5);
+				const batchBackgrounds = shuffledBackgrounds.slice(0, numBackgrounds);
+				backgroundsToGive = backgroundsToGive.concat(batchBackgrounds);
+			}
+
+			// Remove duplicates in case the same background was selected multiple times
+			backgroundsToGive = [...new Set(backgroundsToGive)];
+
+			// Update user's unlocked backgrounds
+			user.rankCard.unlockedBackgrounds = user.rankCard.unlockedBackgrounds
+				? [...new Set(user.rankCard.unlockedBackgrounds.concat(backgroundsToGive))]
+				: backgroundsToGive;
+
+			await user.save();
+
+			// Store the number of new backgrounds given to this user
+			userBackgroundsMap.set(user._id, backgroundsToGive.length);
+		}
+
+		console.log('Assigned backgrounds to users based on their level.');
+
+		// Send a message to each user about the new backgrounds they have received
+		for (const user of users) {
+			const discordUser = await client.users.fetch(user._id.split('_')[0]);
+			const backgroundsReceived = userBackgroundsMap.get(user._id);
+			console.log(`User ${discordUser.tag} has received ${backgroundsReceived} new backgrounds`);
+			const message = `Hey! You have received **${backgroundsReceived}** new backgrounds for your rank card! Customize your rank card using these backgrounds with the \`/edit-rank-card\` command in <#1273300591875194880>.`;
+			await discordUser.send(message).catch(() => console.log(`Could not send message to ${discordUser.tag}`));
+		}
+
 
 		// Reset votesLeft for all users every day at midnight
 		const job = new CronJob(

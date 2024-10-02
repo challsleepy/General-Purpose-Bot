@@ -13,7 +13,7 @@ new Command({
     description: 'Edit your rank card',
     type: [CommandType.SLASH],
     run: async (ctx) => {
-        return ctx.reply({ content: 'This command is currently disabled', ephemeral: true })
+        await ctx.deferReply({ ephemeral: true })
         const user = await xpUser.findById(`${ctx.user.id}_${ctx.guild.id}`)
         if (!user) {
             return ctx.editReply({ content: 'You have not sent any messages yet!', ephemeral: true })
@@ -33,6 +33,7 @@ new Command({
                 level: user.current_level,
                 progressBarColor: user.rankCard.progressBarColor || user.displayHex,
                 background: user.rankCard.background || '#222222',
+                unlockedBackgrounds: user.rankCard.unlockedBackgrounds || [],
                 rank: await checkRankPosition(ctx.user.id, ctx.guild.id)
             }
         })

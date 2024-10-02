@@ -2,6 +2,7 @@
 const config = require('../config.json');
 const { addCooldown, isOnCooldown } = require('./cooldown.js');
 const mowTournamentStatus = require('./mowTournamentStatus.js');
+const rankCardBackgrounds = require('../rankCardBackgrounds.json');
 
 /**
  * @typedef {Object} User
@@ -25,7 +26,7 @@ async function addRandomXP(user, ctx) {
     // Add random xp in range 15-30 to user if the user isnt in cooldown
     user.current_xp += Math.floor(Math.random() * 16) + 15;
     // Add 0.2 mowpoints to the user if the mowTournamentStatus is true
-    if (await mowTournamentStatus() === true) { 
+    if (await mowTournamentStatus() === true) {
         user.mowPoints = user.mowPoints ? user.mowPoints + 0.2 : 0.2;
     }
     // Add the user to the cooldown (1 minute)
@@ -47,6 +48,46 @@ async function addRandomXP(user, ctx) {
         // Get levelup channel id from config and send a message
         const levelupChannel = await ctx.guild.channels.fetch(config.discord.levelupChannelId);
         await levelupChannel.send(`Congratulations <@${ctx.author.id}>! You have leveled up to level ${user.current_level}!`);
+
+        // Check if current level is multiple of 5 (starting from 10) and give 4-7 random backgrounds to the user that they currently don't have
+        if (user.current_level >= 10 && user.current_level % 5 === 0) {
+            // Ensure that user.rankCard exists
+            if (!user.rankCard) {
+                user.rankCard = {};
+            }
+
+            // Initialize unlockedBackgrounds if it doesn't exist
+            const userBackgrounds = user.rankCard.unlockedBackgrounds || [];
+
+            // Assuming rankCardBackgrounds is an array of background IDs
+            const allBackgrounds = rankCardBackgrounds.backgrounds; // or rankCardBackgrounds.backgrounds if it's an object
+
+            // Filter out backgrounds the user already has
+            const availableBackgrounds = allBackgrounds.filter(bg => !userBackgrounds.includes(bg));
+
+            // Determine how many backgrounds to give: random number between 4 and 7
+            const numBackgroundsToGive = Math.min(Math.floor(Math.random() * 4) + 4, availableBackgrounds.length); // Ensures we don't request more than available
+
+            const backgroundsToGive = [];
+
+            // Randomly select backgrounds to give
+            for (let i = 0; i < numBackgroundsToGive; i++) {
+                const randomIndex = Math.floor(Math.random() * availableBackgrounds.length);
+                const randomBackground = availableBackgrounds.splice(randomIndex, 1)[0]; // Remove to prevent duplicates
+                backgroundsToGive.push(randomBackground);
+                userBackgrounds.push(randomBackground);
+            }
+
+            // Update the user's unlocked backgrounds
+            user.rankCard.unlockedBackgrounds = userBackgrounds;
+
+            // Save the user data if necessary
+            await user.save();
+
+            // Send a message to the user with the backgrounds they received
+            await levelupChannel.send(`You have received **${backgroundsToGive.length}** new backgrounds for your rank card!`);
+        }
+
     }
 
     user.displayHex = ctx.member.displayHexColor;

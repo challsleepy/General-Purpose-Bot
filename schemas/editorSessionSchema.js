@@ -11,9 +11,11 @@ const editorSessionSchema = new mongoose.Schema({
         rank: Number,
         avatarURL: String,
         progressBarColor: String,
+        unlockedBackgrounds: Array,
         background: String,
         candyColor: String
     }
 });
+
 editorSessionSchema.index({ "created_at": 1 }, { expireAfterSeconds: 600 });
 module.exports = mongoose.model('EditorSession', editorSessionSchema, config.mongoDB.editorSessionsCollectionName);

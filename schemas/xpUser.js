@@ -15,6 +15,7 @@ const xpUser = new mongoose.Schema({
     rankCard: {
         progressBarColor: String,
         background: String,
+        unlockedBackgrounds: Array,
         candyColor: String
     }
 });

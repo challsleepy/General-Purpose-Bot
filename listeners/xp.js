@@ -17,7 +17,12 @@ new Listener({
                     user = new xpUser({
                         _id: `${ctx.author.id}_${ctx.guild.id}`,
                         current_xp: 0,
-                        current_level: 0
+                        current_level: 0,
+                        rankCard: {
+                            background: '#222222',
+                            progressBarColor: ctx.member.displayHexColor,
+                            unlockedBackgrounds: []
+                        }
                     });
                 }
 
