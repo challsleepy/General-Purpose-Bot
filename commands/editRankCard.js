@@ -43,7 +43,7 @@ new Command({
         const buttonRow = new ActionRowBuilder().addComponents([
             new ButtonBuilder()
                 .setLabel('Edit Rank Card')
-                .setURL(`http://localhost:3000/rankCard/${session._id}`)
+                .setURL(`https://ranks.codenchill.org/rankCard/${session._id}`)
                 .setStyle(ButtonStyle.Link)
         ])
 
