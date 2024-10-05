@@ -50,7 +50,7 @@ async function addRandomXP(user, ctx) {
         await levelupChannel.send(`Congratulations <@${ctx.author.id}>! You have leveled up to level ${user.current_level}!`);
 
         // Check if current level is multiple of 5 (starting from 10) and give 4-7 random backgrounds to the user that they currently don't have
-        if (user.current_level >= 10 && user.current_level % 5 === 0) {
+        if (user.current_level % 5 === 0) {
             // Ensure that user.rankCard exists
             if (!user.rankCard) {
                 user.rankCard = {};
@@ -85,7 +85,7 @@ async function addRandomXP(user, ctx) {
             await user.save();
 
             // Send a message to the user with the backgrounds they received
-            await levelupChannel.send(`You have received **${backgroundsToGive.length}** new backgrounds for your rank card!`);
+            await levelupChannel.send(`You have received **${backgroundsToGive.length}** new backgrounds for your rank card! You can customize your rankcard using \`/edit-rank-card\``);
         }
 
     }
