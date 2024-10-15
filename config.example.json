@@ -4,6 +4,7 @@
         "suggestionsChannelId": "SUGGESTIONS_CHANNEL_ID",
         "devGuildId": "DEVELOPMENT_GUILD_ID",
         "welcomeChannelId": "WELCOME_CHANNEL_ID",
+        "leaveChannelId": "LEAVE_CHANNEL_ID",
         "countChannelId": "COUNT_CHANNEL_ID",
         "countChannelWebhook": "WEBHOOK_URL",
         "voteCount": "VOTE_THRESHOLD",
