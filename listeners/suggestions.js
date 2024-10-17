@@ -8,6 +8,8 @@ new Listener({
     run: async ctx => {
         if (ctx.author.bot) return;
         if (ctx.channel.id === config.discord.suggestionsChannelId) {
+            // Check if message was send in a threas
+            if (ctx.hasThread) return;
             try {
                 await ctx.delete();
                 const message = await ctx.channel.send({
