@@ -7,7 +7,7 @@ new Listener({
     name: 'Bump Listener',
     event: 'messageCreate',
     run: async ctx => {
-        if (ctx.author.id === "1249002350929252453") {
+        if (ctx.author.id === "302050872383242240") {
             // check if embed description has "Bump done"
             if (ctx.embeds[0]?.description?.includes("Bump done!")) {
                 try {
