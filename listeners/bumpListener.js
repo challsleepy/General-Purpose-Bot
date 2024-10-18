@@ -7,7 +7,7 @@ new Listener({
     name: 'Bump Listener',
     event: 'messageCreate',
     run: async ctx => {
-        if (ctx.author.id === "302050872383242240") {
+        if (ctx.author.id === "1249002350929252453") {
             // check if embed description has "Bump done"
             if (ctx.embeds[0]?.description?.includes("Bump done!")) {
                 try {
@@ -73,6 +73,8 @@ new Listener({
                         bumperDoc.streak = 1;
                     }
 
+                    description+= ' \n\n*I\'ll remind you to bump the server in 2 hours!*';
+
                     // Update the lastBumped date
                     bumperDoc.lastBumped = new Date();
                     await bumperDoc.save();
@@ -89,7 +91,11 @@ new Listener({
                         .setFooter({ text: "Thanks for bumping the server!" });
 
                     // Send the description to the user
-                    ctx.channel.send({ embeds: [embed] });
+                    await ctx.channel.send({ embeds: [embed] });
+
+                    setTimeout(async () => {
+                        await ctx.channel.send({ content: `<@${bumper.id}> Oi, it's time to bump the server` });
+                    }, 7200000);
 
                 } catch (err) {
                     console.log("Error fetching reference", err)
