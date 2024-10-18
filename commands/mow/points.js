@@ -1,6 +1,6 @@
 const { Command, CommandType, Argument, ArgumentType, MessageEmbed } = require('gcommands');
-const xpUser = require('../schemas/xpUser');
-const mowTournamentStatus = require('../utils/mowTournamentStatus');
+const xpUser = require('../../schemas/xpUser');
+const mowTournamentStatus = require('../../utils/mowTournamentStatus');
 
 new Command({
     name: 'points',

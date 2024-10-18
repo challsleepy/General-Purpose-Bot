@@ -1,9 +1,9 @@
 // ? Have to add feature to let people see others' rank
 // Add additional argument to check other people's rank
 const { Command, CommandType, Argument, ArgumentType } = require('gcommands');
-const xpUser = require('../schemas/xpUser');
-const checkRankPosition = require('../utils/checkRankPosition');
-const { logInfo, logSuccess } = require('../utils/consoleLoggers');
+const xpUser = require('../../schemas/xpUser');
+const checkRankPosition = require('../../utils/checkRankPosition');
+const { logInfo, logSuccess } = require('../../utils/consoleLoggers');
 
 new Command({
     name: 'rank',

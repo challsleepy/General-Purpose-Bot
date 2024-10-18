@@ -2,8 +2,8 @@
 
 const { Command, CommandType } = require('gcommands');
 const { PermissionFlagsBits } = require('discord.js');
-const mowTournamentStatus = require('../utils/mowTournamentStatus');
-const xpConfig = require('../schemas/xpConfig');
+const mowTournamentStatus = require('../../utils/mowTournamentStatus');
+const xpConfig = require('../../schemas/xpConfig');
 
 new Command({
     name: 'startmow',

@@ -2,11 +2,11 @@
 
 const { Command, CommandType, MessageEmbed } = require('gcommands')
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const xpUser = require('../schemas/xpUser')
-const editRankCardSession = require('../schemas/editorSessionSchema')
+const xpUser = require('../../schemas/xpUser')
+const editRankCardSession = require('../../schemas/editorSessionSchema')
 const { randomBytes } = require('crypto');
-const { logInfo, logSuccess } = require('../utils/consoleLoggers');
-const checkRankPosition = require('../utils/checkRankPosition');
+const { logInfo, logSuccess } = require('../../utils/consoleLoggers');
+const checkRankPosition = require('../../utils/checkRankPosition');
 
 new Command({
     name: 'edit-rank-card',

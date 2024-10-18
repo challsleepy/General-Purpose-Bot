@@ -1,8 +1,8 @@
 // Command that lets people vote for other people only once. The person whos getting the role gets 10 mowpoint
 const { Command, CommandType, Argument, ArgumentType, MessageEmbed } = require('gcommands');
-const xpUser = require('../schemas/xpUser');
-const mowTournamentStatus = require('../utils/mowTournamentStatus');
-const config = require('../config.json');
+const xpUser = require('../../schemas/xpUser');
+const mowTournamentStatus = require('../../utils/mowTournamentStatus');
+const config = require('../../config.json');
 
 new Command({
     name: 'vote',

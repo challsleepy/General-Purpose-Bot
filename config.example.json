@@ -26,6 +26,7 @@
         "authSource": "AUTH_DATABASE",
         "xpCollectionName": "XP_COLLECTION",
         "countersCollectionName": "COUNTERS_COLLECTION",
-        "editorSessionsCollectionName": "EDITOR_SESSIONS_COLLECTION"
+        "editorSessionsCollectionName": "EDITOR_SESSIONS_COLLECTION",
+        "bumpCollectionName": "BUMP_COLLECTION"
     }
 }

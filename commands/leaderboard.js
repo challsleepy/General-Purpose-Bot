@@ -5,6 +5,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const xpUser = require('../schemas/xpUser');
 const mowTournamentStatus = require('../utils/mowTournamentStatus');
 const countUserSchema = require('../schemas/countUserSchema');
+const bumpersSchema = require('../schemas/bumpersSchema');
 
 new Command({
     name: 'leaderboard',
@@ -17,7 +18,8 @@ new Command({
             choices: [
                 { name: 'Server', value: 'server' },
                 { name: 'Member Of The Week', value: 'mow' },
-                { name: 'Count', value: 'count' }
+                { name: 'Count', value: 'count' },
+                { name: 'Bumps', value: 'bumps' },
             ],
             type: ArgumentType.STRING,
             required: true,
@@ -79,12 +81,34 @@ new Command({
                     .setTitle('Count Leaderboard')
                     .setColor('#FFBF00')
                     .setTimestamp();
-                
+
                 if (!users.length) {
                     embed.setDescription('Nothing to show here yet!');
                 } else {
                     embed.setDescription(
                         users.map((user, index) => `${index + 1}. <@${user._id}> - ${user.totalCounts} counts`).join('\n')
+                    )
+                }
+
+                // Send the embed
+                await ctx.editReply({ embeds: [embed] });
+            }
+
+            if (leaderboardType === "bumps") {
+                // Get all users sorted by numberOfBumps in descending order. Give top 30 users. Dont use fields just use description
+                const users = await bumpersSchema.find({ numberOfBumps: { $exists: true } }).sort({ numberOfBumps: -1 });
+
+                // Create an embed to send the leaderboard
+                const embed = new MessageEmbed()
+                    .setTitle('Bumps Leaderboard')
+                    .setColor('#FFBF00')
+                    .setTimestamp();
+
+                if (!users.length) {
+                    embed.setDescription('Nothing to show here yet!');
+                } else {
+                    embed.setDescription(
+                        users.map((user, index) => `${index + 1}. <@${user._id}> - ${user.numberOfBumps} bumps`).join('\n')
                     )
                 }
 

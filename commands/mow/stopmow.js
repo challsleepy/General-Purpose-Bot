@@ -1,10 +1,10 @@
 // Command to stop member of the week tournament. It sends leaderboard of the tournament and then deletes all the mowPoints and vote status from the database
 
 const { Command, CommandType, MessageEmbed } = require('gcommands');
-const xpUser = require('../schemas/xpUser');
+const xpUser = require('../../schemas/xpUser');
 const { PermissionFlagsBits } = require('discord.js');
-const mowTournamentStatus = require('../utils/mowTournamentStatus');
-const xpConfig = require('../schemas/xpConfig');
+const mowTournamentStatus = require('../../utils/mowTournamentStatus');
+const xpConfig = require('../../schemas/xpConfig');
 
 new Command({
     name: 'stopmow',
