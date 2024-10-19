@@ -94,7 +94,7 @@ new Listener({
                     await ctx.channel.send({ embeds: [embed] });
 
                     setTimeout(async () => {
-                        await ctx.channel.send({ content: `<@${bumper.id}> Oi, it's time to bump the server` });
+                        await ctx.channel.send({ content: `Oi, it's time to bump the server` });
                     }, 7200000);
 
                 } catch (err) {
