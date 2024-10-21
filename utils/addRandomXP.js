@@ -49,44 +49,46 @@ async function addRandomXP(user, ctx) {
         const levelupChannel = await ctx.guild.channels.fetch(config.discord.levelupChannelId);
         await levelupChannel.send(`Congratulations <@${ctx.author.id}>! You have leveled up to level ${user.current_level}!`);
 
-        // Check if current level is multiple of 5 (starting from 10) and give 4-7 random backgrounds to the user that they currently don't have
-        if (user.current_level % 5 === 0) {
-            // Ensure that user.rankCard exists
-            if (!user.rankCard) {
-                user.rankCard = {};
-            }
-
-            // Initialize unlockedBackgrounds if it doesn't exist
-            const userBackgrounds = user.rankCard.unlockedBackgrounds || [];
-
-            // Assuming rankCardBackgrounds is an array of background IDs
-            const allBackgrounds = rankCardBackgrounds.backgrounds; // or rankCardBackgrounds.backgrounds if it's an object
-
-            // Filter out backgrounds the user already has
-            const availableBackgrounds = allBackgrounds.filter(bg => !userBackgrounds.includes(bg));
-
-            // Determine how many backgrounds to give: random number between 4 and 7
-            const numBackgroundsToGive = Math.min(Math.floor(Math.random() * 4) + 4, availableBackgrounds.length); // Ensures we don't request more than available
-
-            const backgroundsToGive = [];
-
-            // Randomly select backgrounds to give
-            for (let i = 0; i < numBackgroundsToGive; i++) {
-                const randomIndex = Math.floor(Math.random() * availableBackgrounds.length);
-                const randomBackground = availableBackgrounds.splice(randomIndex, 1)[0]; // Remove to prevent duplicates
-                backgroundsToGive.push(randomBackground);
-                userBackgrounds.push(randomBackground);
-            }
-
-            // Update the user's unlocked backgrounds
-            user.rankCard.unlockedBackgrounds = userBackgrounds;
-
-            // Save the user data if necessary
-            await user.save();
-
-            // Send a message to the user with the backgrounds they received
-            await levelupChannel.send(`You have received **${backgroundsToGive.length}** new backgrounds for your rank card! You can customize your rankcard using \`/edit-rank-card\``);
+        // Ensure that user.rankCard exists
+        if (!user.rankCard) {
+            user.rankCard = {};
         }
+
+        // Initialize unlockedBackgrounds if it doesn't exist
+        const userBackgrounds = user.rankCard.unlockedBackgrounds || [];
+
+        // Assuming rankCardBackgrounds is an array of background IDs
+        const allBackgrounds = rankCardBackgrounds.backgrounds; // or rankCardBackgrounds.backgrounds if it's an object
+
+        // Filter out backgrounds the user already has
+        const availableBackgrounds = allBackgrounds.filter(bg => !userBackgrounds.includes(bg));
+
+        // Determine how many backgrounds to give: random number between 4 and 5 for every level, and 5-10 for every 5 levels
+        let numBackgroundsToGive;
+        if (user.current_level % 5 === 0) {
+            numBackgroundsToGive = Math.min(Math.floor(Math.random() * 6) + 5, availableBackgrounds.length); // 5-10 backgrounds
+        } else {
+            numBackgroundsToGive = Math.min(Math.floor(Math.random() * 2) + 2, availableBackgrounds.length); // 2-3 backgrounds
+        }
+
+        const backgroundsToGive = [];
+
+        // Randomly select backgrounds to give
+        for (let i = 0; i < numBackgroundsToGive; i++) {
+            const randomIndex = Math.floor(Math.random() * availableBackgrounds.length);
+            const randomBackground = availableBackgrounds.splice(randomIndex, 1)[0]; // Remove to prevent duplicates
+            backgroundsToGive.push(randomBackground);
+            userBackgrounds.push(randomBackground);
+        }
+
+        // Update the user's unlocked backgrounds
+        user.rankCard.unlockedBackgrounds = userBackgrounds;
+
+        // Save the user data if necessary
+        await user.save();
+
+        // Send a message to the user with the backgrounds they received
+        await levelupChannel.send(`You have received **${backgroundsToGive.length}** new backgrounds for your rank card! You can customize your rankcard using \`/edit-rank-card\``);
 
     }
 
