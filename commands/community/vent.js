@@ -3,12 +3,12 @@ const { EmbedBuilder } = require('discord.js');
 
 new Command({
     name: 'vent',
-    description: 'Vent anonymously!',
+    description: 'Vent anonymously',
     type: [CommandType.SLASH],
     arguments: [
         new Argument({
             name: 'content',
-            description: 'What would you like to say?',
+            description: 'Let it all out',
             type: ArgumentType.STRING,
             required: true
         }),
