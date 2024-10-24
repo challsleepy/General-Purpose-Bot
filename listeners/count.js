@@ -6,16 +6,16 @@ const CountStateSchema = require('../schemas/countStateSchema');
 const CountUserSchema = require('../schemas/countUserSchema');
 
 const countMessedUpMessages = [
-    // { message: ":x: | Ofc you ruined it. Back to one we go.", action: "end-counting" },
-    // { message: ":x: | Bravo. That was spectacularly wrong.", action: "end-counting" },
-    // { message: ":x: | Nice job, genius. Let's pretend that never happened.", action: "end-counting" },
-    // { message: ":x: | OMG I PROMISE ITS NOT THIS HARD", action: "end-counting" },
-    // { message: ":x: | Nice job, genius. Let's pretend that never happened.", action: "end-counting" },
-    // { message: ":x: | i-...nvm", action: "end-counting" },
-    // { message: ":x: | bruh", action: "end-counting" },
-    // { message: ":x: | You’re really on a roll… a downward one. Resetting.", action: "end-counting" },
+    { message: ":x: | Ofc you ruined it. Back to one we go.", action: "end-counting" },
+    { message: ":x: | Bravo. That was spectacularly wrong.", action: "end-counting" },
+    { message: ":x: | Nice job, genius. Let's pretend that never happened.", action: "end-counting" },
+    { message: ":x: | OMG I PROMISE ITS NOT THIS HARD", action: "end-counting" },
+    { message: ":x: | Nice job, genius. Let's pretend that never happened.", action: "end-counting" },
+    { message: ":x: | i-...nvm", action: "end-counting" },
+    { message: ":x: | bruh", action: "end-counting" },
+    { message: ":x: | You’re really on a roll… a downward one. Resetting.", action: "end-counting" },
     { message: ":x: | dawg atp lemme just do it for you", action: "count" },
-    // { message: "<:jesus_wyd:1299004775962116148> | in a good mood today, i'll let it slide this once", action: "forgive" },
+    { message: "<:jesus_wyd:1299004775962116148> | in a good mood today, i'll let it slide this once", action: "forgive" },
 ];
 
 new Listener({
