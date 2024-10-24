@@ -24,6 +24,7 @@ new Listener({
 
     run: async ctx => {
         if (ctx.author.bot) return;
+        if (isNaN(ctx.content) || ctx.content.trim() === "") return;
         if (ctx.channel.id === config.discord.countChannelId) {
             try {
                 let countDoc = await CountStateSchema.findById('config');
