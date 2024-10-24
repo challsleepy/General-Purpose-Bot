@@ -14,7 +14,7 @@ const countMessedUpMessages = [
     { message: ":x: | i-...nvm", action: "end-counting" },
     { message: ":x: | bruh", action: "end-counting" },
     { message: ":x: | You’re really on a roll… a downward one. Resetting.", action: "end-counting" },
-    { message: ":x: | dawg atp lemme just do it for you", action: "count" },
+    { message: ":woman_facepalming: | dawg atp lemme just do it for you", action: "count" },
     { message: "<:jesus_wyd:1299004775962116148> | in a good mood today, i'll let it slide this once", action: "forgive" },
 ];
 
