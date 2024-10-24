@@ -89,8 +89,8 @@ new Listener({
                 if (countDoc.currentCount + 1 === parseInt(ctx.content)) {
 
                     countUserDoc.displayName = ctx.member.displayName;
-                    countUserDoc.totalCounts++;
-                    countDoc.currentCount = countDoc.currentCount++;
+                    countUserDoc.totalCounts = countUserDoc.totalCounts + 1;
+                    countDoc.currentCount = countDoc.currentCount + 1;
                     countDoc.currentCountAuthorId = ctx.author.id;
                     await countUserDoc.save();
                     await countDoc.save();
