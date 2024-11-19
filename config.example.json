@@ -1,6 +1,7 @@
 {
     "discord": {
         "token": "DISCORD_BOT_TOKEN",
+        "confessionsChannelId": "CONFESSIONS_CHANNEL_ID",
         "suggestionsChannelId": "SUGGESTIONS_CHANNEL_ID",
         "devGuildId": "DEVELOPMENT_GUILD_ID",
         "welcomeChannelId": "WELCOME_CHANNEL_ID",
