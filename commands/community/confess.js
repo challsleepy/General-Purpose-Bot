@@ -12,7 +12,7 @@ new Command({
     type: [CommandType.SLASH],
     arguments: [
         new Argument({
-            name: 'content',
+            name: 'confession',
             description: '👀',
             type: ArgumentType.STRING,
             required: true
