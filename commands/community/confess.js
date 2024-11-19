@@ -27,12 +27,12 @@ new Command({
             // Defer the reply so the user doesn't see the typing indicator
             await ctx.deferReply({ ephemeral: true })
 
-            const content = ctx.arguments.getString('content');
+            const confession = ctx.arguments.getString('confession');
 
             const ventEmbed = new EmbedBuilder()
                 .setColor("Random")
                 .setTitle(`CONFESSION`)
-                .setDescription(`*${content}*`)
+                .setDescription(`*${confession}*`)
                 .setFooter({ text: "Anonymous", iconURL: ctx.client.user.displayAvatarURL() })
                 .setTimestamp()
 
