@@ -16,6 +16,29 @@
                 "level": 5,
                 "roleId": "ROLE_ID"
             }
+        ],
+        "reactionRoles": [
+            {
+                "messageId": "MESSAGE_ID_WITH_REACTIONS",
+                "roleEmojis": [
+                    {
+                        "emoji": "EMOJI/EMOJI ID",
+                        "roleId": "ROLE ID OF ROLE TO ASSIGN"
+                    },
+                    {
+                        "emoji": "EMOJI/EMOJI ID",
+                        "roleId": "ROLE ID OF ROLE TO ASSIGN"
+                    },
+                    {
+                        "emoji": "EMOJI/EMOJI ID",
+                        "roleId": "ROLE ID OF ROLE TO ASSIGN"
+                    },
+                    {
+                        "emoji": "EMOJI/EMOJI ID",
+                        "roleId": "ROLE ID OF ROLE TO ASSIGN"
+                    }
+                ]
+            }
         ]
     },
     "mongoDB": {

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { GClient, Plugins, Command, Component } = require('gcommands');
-const { GatewayIntentBits } = require('discord.js');
+const { GatewayIntentBits, Partials } = require('discord.js');
 const { join } = require('path');
 const config = require('./config.json')
 const mongoose = require('mongoose');
@@ -38,7 +38,14 @@ const client = new GClient({
 	// Set the guild where you will be developing your bot. This is usefull cause guild slash commands update instantly.
 	devGuildId: config.discord.devGuildId,
 	// Set the intents you will be using (https://discordjs.guide/popular-topics/intents.html#gateway-intents)
-	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent, 
+        GatewayIntentBits.GuildMembers,      
+        GatewayIntentBits.GuildMessageReactions,
+      ],
+    partials: [Partials.Message, Partials.Channel, Partials.GuildMember, Partials.User, Partials.Reaction]
 });
 
 // Login to the discord API
